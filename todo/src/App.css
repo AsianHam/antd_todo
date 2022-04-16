@@ -53,3 +53,8 @@
   display: inline;
   float: right;
 }
+
+.scrollBar {
+  overflow: auto;
+  height: 500px;
+}

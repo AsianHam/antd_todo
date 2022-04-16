@@ -44,27 +44,28 @@ export default function App() {
       </div>
 
       <div>
-        {list.map((item, index) => 
-          <div className={item.isChecked ? "Strike" : "Normal"} key={index}>
-            <Checkbox onChange={(e) => strikeThrough(e, index)} checked={item.isChecked}>
-              <Typography.Text
-                editable={{
-                  onChange: (newVal) => updateTask(newVal, index),
-                  maxLength: 100,
-                  autoSize: false,
-                }}
-              >
-                {item.text}
-              </Typography.Text>
-            </Checkbox>
-            <div className="delButton" key={index}>
-              <Button onClick={(e) => deleteTask(e, index)}>Delete</Button>
+        <div className="scrollBar">
+          {list.map((item, index) => 
+            <div className={item.isChecked ? "Strike" : "Normal"} key={index}>
+              <Checkbox onChange={(e) => strikeThrough(e, index)} checked={item.isChecked}>
+                <Typography.Text
+                  editable={{
+                    onChange: (newVal) => updateTask(newVal, index),
+                    maxLength: 100,
+                    autoSize: false,
+                  }}
+                >
+                  {item.text}
+                </Typography.Text>
+              </Checkbox>
+              <div className="delButton" key={index}>
+                <Button onClick={(e) => deleteTask(e, index)}>Delete</Button>
+              </div>
+              <div style={{clear: "right"}}></div>
+              <p/>
             </div>
-            <div style={{clear: "right"}}></div>
-            <p/>
-          </div>
-        )}
-
+          )}
+        </div>
       <Button onClick={addTask}>
         Add Task
       </Button>
