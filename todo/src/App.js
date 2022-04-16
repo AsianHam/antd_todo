@@ -2,7 +2,7 @@ import "./App.css";
 import React, { useState } from "react";
 import { Button, Typography, Checkbox } from "antd";
 import "antd/dist/antd.css";
-import "./App.css";
+import { DeleteOutlined } from "@ant-design/icons";
 
 export default function App() {
   const [list, setList] = useState([{ isChecked: false, text: "" }]);
@@ -59,7 +59,7 @@ export default function App() {
                 </Typography.Text>
               </Checkbox>
               <div className="delButton" key={index}>
-                <Button onClick={(e) => deleteTask(e, index)}>Delete</Button>
+                <Button icon={<DeleteOutlined/>} danger onClick={(e) => deleteTask(e, index)}></Button>
               </div>
               <div style={{clear: "right"}}></div>
               <p/>
