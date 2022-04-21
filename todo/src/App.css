@@ -49,12 +49,18 @@
   width: auto;
 }
 
-.delButton {
-  display: inline;
-  float: right;
-}
-
 .scrollBar {
   overflow: auto;
   height: 500px;
+  position: relative;
+}
+
+.taskWidth {
+  width: 400px;
+  top: 50%;
+}
+
+.delButton {
+  position: absolute;
+  right: 0;
 }
