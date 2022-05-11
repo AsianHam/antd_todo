@@ -1,11 +1,11 @@
 import "./App.css";
 import React, { useState } from "react";
-import { Button, Typography, Checkbox } from "antd";
+import { Button, Checkbox, Input } from "antd";
 import "antd/dist/antd.css";
 import { DeleteOutlined } from "@ant-design/icons";
-
 export default function App() {
   const [list, setList] = useState([{ isChecked: false, text: "" }]);
+  const { TextArea } = Input;
 
   function strikeThrough(e, index) {
     const newList = [...list]
@@ -15,6 +15,20 @@ export default function App() {
 
   function addTask() {
     setList([...list, { isChecked: false, text: "" }])
+    const index = list.length
+    const observer = new MutationObserver((mutations, obs) => {
+      const task = document.getElementById(index);
+      if (task) {
+        document.getElementById(index).focus()
+        obs.disconnect();
+        return;
+      }
+    });
+
+    observer.observe(document, {
+      childList: true,
+      subtree: true
+    });
   }
 
   function deleteTask(e, index) {
@@ -28,6 +42,10 @@ export default function App() {
     const newList = [...list]
     newList[index].text = newVal
     setList(newList)
+  }
+
+  function enterPress(index) {
+    document.getElementById(index).blur()
   }
 
   return (
@@ -46,23 +64,26 @@ export default function App() {
       <div>
         <div className="scrollBar">
           {list.map((item, index) => 
-            <div className={item.isChecked ? "Strike" : "Normal"} key={index}>
-              <div className="delButton" key={index}>
+            <div className="Tasks" key={index}>
+              <div className="checkBox">
+                <Checkbox onChange={(e) => strikeThrough(e, index)} checked={item.isChecked}/>
+              </div>
+              <div className="taskWidth">
+                <TextArea 
+                  placeholder="New Task" 
+                  bordered={false}
+                  autoSize
+                  id={index} 
+                  onKeyPress={(e) => {
+                    if (e.key === "Enter") {
+                      {enterPress(index)}
+                    }
+                  }}
+                />
+              </div>
+              <div className="delButton">
                 <Button icon={<DeleteOutlined/>} danger onClick={(e) => deleteTask(e, index)}></Button>
               </div>
-              <Checkbox onChange={(e) => strikeThrough(e, index)} checked={item.isChecked}>
-                <div className="taskWidth">
-                  <Typography.Text
-                    editable={{
-                      onChange: (newVal) => updateTask(newVal, index),
-                      maxLength: 100,
-                      autoSize: false,
-                    }}
-                  >
-                    {item.text}
-                  </Typography.Text>
-                </div>
-              </Checkbox>
               <p/>
               <p/>
             </div>

@@ -39,14 +39,10 @@
   }
 }
 
-.Normal {
-  text-decoration: none;
+.Tasks {
   width: auto;
-}
-
-.Strike {
-  text-decoration: line-through;
-  width: auto;
+  display: grid;
+  grid-template-columns: auto auto auto;
 }
 
 .scrollBar {
@@ -57,10 +53,13 @@
 
 .taskWidth {
   width: 400px;
-  top: 50%;
 }
 
 .delButton {
-  position: absolute;
-  right: 0;
+  padding: 1px
+}
+
+.checkBox {
+  padding-top: 4px;
+  width: 25px;
 }
